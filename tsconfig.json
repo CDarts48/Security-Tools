@@ -1,0 +1,81 @@
+{
+    "compilerOptions": {
+        // Target ES2020 for good modern JavaScript support
+        "target": "ES2020",
+        // Use ES modules
+        "module": "ESNext",
+        "moduleResolution": "node",
+        // Output directory for compiled JavaScript
+        "outDir": "./dist",
+        // Root directory of source files
+        "rootDir": "./",
+        // Include source maps for debugging
+        "sourceMap": true,
+        // Enable strict type checking
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedIndexedAccess": true,
+        // Additional checks
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "exactOptionalPropertyTypes": true,
+        // Allow importing JSON files
+        "resolveJsonModule": true,
+        // Enable all strict options
+        "alwaysStrict": true,
+        // Module detection
+        "moduleDetection": "force",
+        // Interop options
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        // Skip type checking of declaration files
+        "skipLibCheck": true,
+        // Include DOM types for web APIs
+        "lib": [
+            "ES2020",
+            "DOM"
+        ],
+        // Emit options
+        "declaration": true,
+        "declarationMap": true,
+        "removeComments": false,
+        // Path mapping for cleaner imports (optional)
+        "baseUrl": "./",
+        "paths": {
+            "@/*": [
+                "./*"
+            ],
+            "@recon/*": [
+                "./Recon/*"
+            ],
+            "@apis/*": [
+                "./Recon/APIs/*"
+            ]
+        }
+    },
+    // Include all TypeScript files in the project
+    "include": [
+        "**/*.ts",
+        "**/*.tsx"
+    ],
+    // Exclude common directories that shouldn't be compiled
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/*.test.ts",
+        "**/*.spec.ts"
+    ],
+    // Compiler options for watch mode
+    "watchOptions": {
+        "watchFile": "useFsEvents",
+        "watchDirectory": "useFsEvents",
+        "fallbackPolling": "dynamicPriority"
+    }
+}
