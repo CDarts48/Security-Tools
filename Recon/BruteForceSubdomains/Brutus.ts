@@ -6,10 +6,10 @@ This can be altered to include less common characters, like '-'
 
 Chinese, Arabic and Latin characters are als supported by some browsers, but not all.
 */
-
+const generateSubdomains = function(length) {
 const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-'.split('');
 let subdomains = charset;
-let subdomain
+let subdomain;
 let letter;
 let temp;
 
@@ -35,3 +35,4 @@ return subdomains;
 }
 
 const subdomains = generateSubdomains(4)
+
