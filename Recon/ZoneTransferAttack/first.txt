@@ -1,0 +1,15 @@
+# Name servers (NS records):
+host -t ns "Website"
+
+# AAAA records (IPv6 addresses):
+host -t aaaa
+
+# MX records (mail servers):
+host -t mx 
+
+# TXT records:
+host -t txt
+
+# All records:
+host 
+
