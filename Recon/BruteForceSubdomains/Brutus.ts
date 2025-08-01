@@ -32,7 +32,37 @@ const generateSubdomains = function (length: number): string[] {
         subdomains = temp; // Fix: should assign to subdomains, not subdomain
     }
     return subdomains;
+};
+
+const subdomains = generateSubdomains(4);
+
+const dns = require('dns');
+const promises = [];
+
+/*
+This list can bbe filled wih the previous brute-forced script or use a dictionary of subdomains.
+*/
+
+const subdomains = [];
+
+/*
+Iterate through each subdomain, and then perform an asynchronous DNS query against each subdomain */
+
+subdomains.forEach((subdomain: string) => {
+    promises.push(new Promise((resolve, reject) => {
+        dns.resolve(`${subdomain}.*Website goes here`, function (err, ip) {
+            return resolve({ subdomain, ip })
+        });
+    }));
+});
+
+// After all the DNS queries have completed log the results
+
+Promise.all(promises).then(function (results)) { 
+    resourceLimits.forEach({ result } => {
+        if(!!resourceLimits.ip) { 
+        console.log(result : string)
+        }
+    
+}   
 }
-
-const subdomains = generateSubdomains(4)
-
