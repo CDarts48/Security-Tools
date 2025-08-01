@@ -1,0 +1,6 @@
+dns.reslove is a function in the Node.js library that attempts to resolve a domain name to an IP addresses
+!! Defined
+
+If we included  condition that called reject(), we would also need a catch() block at the end to handel errors. The DNS library throws a number of errors, some which may not be worth interrupting our brute force for. INCLUDE REJECT AND CATCH TO TAKE THIS EXAMPLE FURTHER.
+
+DNS.resolve because dns look up relies on LIBUV, which preforms operations synchronously
