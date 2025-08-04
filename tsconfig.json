@@ -64,7 +64,7 @@
     "include": [
         "**/*.ts",
         "**/*.tsx"
-    ],
+, "Recon/DictionaryAttack/Da.js"    ],
     // Exclude common directories that shouldn't be compiled
     "exclude": [
         "node_modules",
