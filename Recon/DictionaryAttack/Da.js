@@ -12,11 +12,33 @@
  * streamed to that file whenever a promise resolved.
  */
 
-const dns = require('dns');
-const csv = require('csv-parser');
-const fs = require('fs');
+import dns from 'dns';
+import csv from 'csv-parser';
+import fs from 'fs';
 
 const promises = [];
 
-fs.createReadStream()
+fs.readFileSync('subdomains10000.txt')
+    .pipe(csv())
+    .on('data', (subdomain) => {
+        console.log(`Checking: ${subdomain}`);
+        promises.push(new Promise((resolve, reject) => {
+            dns.resolve(`${subdomain}.investmentai.ai`, function (err, ip) {
+                if (err) {
+                    return resolve({ subdomain: subdomain, ip: null, error: err.code });
+                }
+                return resolve({ subdomain: subdomain, ip: ip });
+            });
+        }));
+    })
+    .on('end', () => {
+        Promise.all(promises).then(function (results) {
+            results.forEach((result) => {
+                if(!!result.ip) {
+                    console.log(result)
+                };
+            });
+        });
+    });
+    // After all DNS queries have completed, log the results.
 
