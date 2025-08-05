@@ -23,7 +23,7 @@ fs.readFileSync('subdomains10000.txt')
     .on('data', (subdomain) => {
         console.log(`Checking: ${subdomain}`);
         promises.push(new Promise((resolve, reject) => {
-            dns.resolve(`${subdomain}.investmentai.ai`, function (err, ip) {
+            dns.resolve(`${subdomain}.mega-bank.comf`, function (err, ip) {
                 if (err) {
                     return resolve({ subdomain: subdomain, ip: null, error: err.code });
                 }
