@@ -25,12 +25,10 @@ const subdomains = fileContent.split('\n').filter(line => line.trim() !== '');
 console.log(`Number of subdomains loaded : ${subdomains.length}`);
 console.log(`First 5 subdomains: ${subdomains.slice(0.5)}`);
 
-    .split('\n')
-    .filter(line => line.trim() !== '')
-    .forEach((subdomain) => {
+    subdomains.forEach((subdomain) => {
         console.log(`Checking: ${subdomain}`);
         promises.push(new Promise((resolve, reject) => {
-            dns.resolve(`${subdomain}.google.com`, function (err, ip) {
+            dns.resolve(`${subdomain}.coloradofilms.com`, function (err, ip) {
                 if (err) {
                     return resolve({ subdomain: subdomain, ip: null, error: err.code });
                 }
