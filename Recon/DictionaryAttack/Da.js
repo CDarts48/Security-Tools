@@ -28,7 +28,8 @@ console.log(`First 5 subdomains: ${subdomains.slice(0.5)}`);
     subdomains.forEach((subdomain) => {
         console.log(`Checking: ${subdomain}`);
         promises.push(new Promise((resolve, reject) => {
-            dns.resolve(`${subdomain}.coloradofilms.com`, function (err, ip) {
+            dns.resolve(`${subdomain}.js
+                .com`, function (err, ip) {
                 if (err) {
                     return resolve({ subdomain: subdomain, ip: null, error: err.code });
                 }
