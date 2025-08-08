@@ -1,9 +1,9 @@
 // Our script has a simple purpose: using a given endpoint (we know this endpoint already accepts at least one HTTP verb), try each additional HTTP Verb. After each additional HTTP verb is tried against the endpoint, record and print the result:
-const https = require('https');
-const http = require('http');
+import https from 'https';
+import http from 'http';
 
-const discoverHTTPVerbs = function (url) { 
-    const verbs = ['OPTIONS','POST', 'GET', 'PATCH', 'DELETE',]
+const discover = function (url) { 
+    const verbs = ['OPTIONS', 'GET', 'POST', 'PATCH', 'DELETE', 'PUT', 'HEAD'];
     const promises = [];
 
     verbs.forEach((verb) => {
@@ -14,32 +14,61 @@ const discoverHTTPVerbs = function (url) {
 
             const options = {
                 hostname: urlObj.hostname,
-                poer
-            }
-// If the request is successful, resolve the promise and include the status code in the result.
-            http.open(verb, url, true)
-            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-            http.onreadystatechange = function () {
-                if (http.readyState === 4) {
-                    return resolve({ verb: verb });
+                port: urlObj.port || (isHttps ? 443 : 80),
+                path: urlObj.pathname,
+                method: verb,
+                timeout: 5000,
+                headers: {
+                    'User-Agent': 'HTTP-Verb-Discovery-Tool'
                 }
-            }
+            };
 
-// If the request is not successful, or does not complete in time, mark the request as unsuccessful. 
-// The time out should be tweaked if need be.
-            setTimeout(() => {
-                return resolve({ verb: verb, status: -1 });
-            },
-                1000);
-            http.send({})
+            const req = client.request(options, (res) => {
+                resolve({ 
+                    verb: verb, 
+                    status: res.statusCode, 
+                    headers: res.headers,
+                    allowed: res.statusCode < 405 
+                });
+            });
+
+            req.on('error', (err) => {
+                resolve({ 
+                    verb: verb, 
+                    status: -1, 
+                    error: err.message 
+                });
+            });
+
+            req.on('timeout', () => {
+                req.destroy();
+                resolve({ 
+                    verb: verb, 
+                    status: -1, 
+                    error: 'timeout' 
+                });
+            });
+
+            req.end();
         });
         promises.push(promise);
     });
-// When all verbs have been attempted, log the results of their respective promises to the console.
-    Promise.all(promises).then(function (values) {
-        console.log(values);
-    });
-}
 
-discoverHTTPVerbs('https://cdartswebdev.com');
+    Promise.all(promises).then(function (results) {
+        console.log('\n=== HTTP Verb Discovery Results ===');
+        results.forEach(result => {
+            const status = result.status === -1 ? 'FAILED' : result.status;
+            const allowed = result.status > 0 && result.status < 405 ? '✓' : '✗';
+            console.log(`${allowed} ${result.verb.padEnd(8)} : ${status}`);
+        });
+        
+        // Show OPTIONS response if available
+        const optionsResult = results.find(r => r.verb === 'OPTIONS');
+        if (optionsResult && optionsResult.headers && optionsResult.headers.allow) {
+            console.log(`\nServer-reported allowed methods: ${optionsResult.headers.allow}`);
+        }
+    });
+};
+
+// Test against your target can use both just change to https
+discover('https://investmentai.ai');
