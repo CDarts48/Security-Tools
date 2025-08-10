@@ -72,3 +72,10 @@ const discover = function (url) {
 
 // Test against your target can use both just change to https
 discover('https://investmentai.ai');
+
+const discoverRedirects = function (url) {
+    console.log(`\nTesting: ${url}`):
+    console.log('Following redirects...\n');
+
+    discover(url);
+}
