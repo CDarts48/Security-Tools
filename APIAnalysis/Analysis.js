@@ -74,7 +74,7 @@ const discover = function (url) {
 discover('https://investmentai.ai');
 
 const discoverRedirects = function (url) {
-    console.log(`\nTesting: ${url}`):
+    console.log(`\nTesting: ${url}`);
     console.log('Following redirects...\n');
 
     discover(url);

@@ -1,9 +1,15 @@
-The HTTP specifications defines a special method that only exists to information about a particular API's verbs. This method is called OPTIONS, which should be our to go-to when preforming recon against an API
+The HTTP specifications defines a special method that only exists to information about a particular API's verbs. 
+This method is called OPTIONS, which should be our to go-to when preforming recon against an API
 We can make a curl request in the terminal.
 curl -i -X OPTIONS https://api.mega-bank.com/users/123
 
+Examining your network via command line
 ipaddress
 netstat -rn 
 
  Network settings
 ifconfig 
+
+Another website we can look at for security vulnerabilities. 
+https://radar.cloudflare.com/
+
