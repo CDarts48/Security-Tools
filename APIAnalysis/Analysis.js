@@ -57,7 +57,7 @@ const discover = function (url) {
     });
 
     Promise.all(promises).then(function (results) {
-        console.log('\n=== HTTP Verb Discovery Results ===');
+        console.log('=== HTTP Verb Discovery Results ===');
         results.forEach(result => {
             const status = result.status === -1 ? 'FAILED' : result.status;
             const allowed = result.status > 0 && result.status < 405 ? '✓' : '✗';
@@ -75,7 +75,7 @@ const discover = function (url) {
 // Test against your target can use both just change to https
 discover('https://tophersmandr.com');
 
-
+// This is to discover the Redirects if any from the original analysis
 const discoverWithRedirects = function (url) {
     console.log(`\nTesting redirects for: ${url}`);
     
