@@ -38,6 +38,7 @@ const discover = function (url) {
                 resolve({ 
                     verb: verb, 
                     status: -1, 
+                    // We return a -1 If the API does not receive a response with in 1 second, can be adjusted. 
                     error: err.message 
                 });
             });
